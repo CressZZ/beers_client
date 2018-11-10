@@ -4,14 +4,16 @@ import { connect } from 'react-redux';
 import * as api from '../lib/api';
 
 class Beers extends Component {
-    componentDidMount(){
+    async componentDidMount(){
         const { dispatch } = this.props;
-        api.getBeers(dispatch)
+        await api.getBeers(dispatch)
+        await api.getTags(dispatch)
     }
 
     render() {
-        const { beers } = this.props;
+        const { beers, tags } = this.props;
         console.log(beers)
+        console.log(tags)
         return (
             <div>
                 <h2>
@@ -30,7 +32,7 @@ Beers.propTypes = {
 function states(state) {
     return {
         beers: state.beers,
-        tags: state.tages
+        tags: state.tags
     };
 }
 

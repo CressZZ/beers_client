@@ -13,7 +13,6 @@ function beers(state = [], action) {
   }
 }
 
-
 /**
  * 태그 관련 reducer
  */
