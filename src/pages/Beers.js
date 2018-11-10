@@ -27,10 +27,11 @@ class Beers extends Component {
      * 처음 마운트 될때 DB로 부터 맥주 리스트와, 태그 리스트를 받아 온다. 
      */
     async componentDidMount(){
-        const { dispatch } = this.props;
+        const { dispatch, selctedTagsKey } = this.props;
         dispatch(Actions.getPage())
-        await api.getTags(dispatch)
-        // await api.getBeers(dispatch)
+        if(selctedTagsKey.length == 0){
+            await api.getTags(dispatch)
+        }
     }
 
 
@@ -38,7 +39,8 @@ class Beers extends Component {
     /**
      * 태그 토글 버튼 클릭 처리 
      */
-    async handleToggleTag(key){
+    async handleToggleTag(key, e){
+        e.preventDefault();
         const { dispatch, selctedTagsKey } = this.props;
         let _selctedTagsKey = selctedTagsKey.splice(0)
         let index = _selctedTagsKey.indexOf(key)
@@ -50,12 +52,14 @@ class Beers extends Component {
 
         dispatch(Actions.toggleTag(_selctedTagsKey));
         await api.getBeers(dispatch, _selctedTagsKey)
+        console.log(e)
     }
 
     /**
      * 더보기 버튼 클릭 처리
      */
-    handleClickMoreBtn(){
+    handleClickMoreBtn(e){
+        e.preventDefault();
         const { dispatch, page, beers, isMaxPage } = this.props;
         if(!isMaxPage){
             dispatch(Actions.nextPage())
