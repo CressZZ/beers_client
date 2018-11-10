@@ -1,0 +1,84 @@
+.beer__item{
+    background: white;
+    padding: 10px;
+    border: 1px solid #979797;
+    border-radius: 5px;
+    height:144px;
+    margin: 10px 0;
+    .beer__top{
+        display: flex;
+        height: 81px;
+        .beer__img{
+            flex:1;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #d9d9d9;
+            img{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+        .beer__info{
+            flex:2;
+            margin-left:20px;
+            display: flex;
+            flex-flow: column;
+            justify-content: space-between;
+            .beer__name{
+                font-size: 18px
+            }
+            .beer__tags{
+                font-weight: bold;
+
+                font-size: 12px;
+                color: #95959E;
+            }
+            .beer__price{
+                font-weight: bold;
+                color: #768399;
+            }
+            .beer__count{
+                display: flex;
+                color:#6E6E78;
+                p{
+                    margin-right:10px;
+                    em{
+                        font-weight: bold;
+                         color:#3C3C42
+                     }
+                }
+               
+            }
+            
+        }
+    }
+    .beer__btnBox{
+        display: flex;
+        height: 30px;
+        display: flex;
+        justify-content: flex-end;
+        margin-top:10px;
+        font-size:12px;
+        .beer__btn:first-child{
+            margin-right: 10px
+        }
+        .beer__btn{
+            width: 45px;
+            border-radius: 3px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+        .beer__btn--del{
+            background: #eee
+        }
+        .beer__btn--add{
+            color: white;
+            background:#3369E8;
+        }
+
+    }
+}

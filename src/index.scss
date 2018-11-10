@@ -25,8 +25,10 @@ label{cursor:pointer;vertical-align:middle;}
 fieldset{border:0;}
 p{margin:0}
 
+body{
+   background: #F2F3F7;
+}
 .container{
-    background: skyblue;
     margin-top: 10px;
-    padding:0 10px;
+    padding:0 10px 30px 10px;
 }

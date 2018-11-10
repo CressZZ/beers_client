@@ -12,7 +12,7 @@ export function getTags (dispatch){
 
 export function getBeers (dispatch){
 
-    return axios.get('http://13.209.98.23:3000/beers/list/A')
+    return axios.get('http://13.209.98.23:3000/beers/list/A_L')
         .then(res=>{
             dispatch(Actions.getBeers(res.data))
         })
