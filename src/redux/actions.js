@@ -2,6 +2,11 @@
 export const GET_BEERS = 'GET_BEERS'
 export const GET_TAGS = 'GET_TAGS'
 export const SET_BEERS = 'SET_BEERS'
+export const GET_PAGE = 'GET_PAGE'
+export const NEXT_PAGE = 'NEXT_PAGE'
+
+
+
 
 // 액션생산자
 export const Actions = {
@@ -21,6 +26,18 @@ export const Actions = {
     return { 
       type: GET_TAGS,
       tags
+    }
+  },
+
+  getPage(){
+    return { 
+      type: GET_PAGE,
+    }
+  },
+
+  nextPage(){
+    return { 
+      type: NEXT_PAGE,
     }
   }
 }

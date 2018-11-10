@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { GET_BEERS, GET_TAGS } from './actions';
+import { GET_BEERS, GET_TAGS, GET_PAGE, NEXT_PAGE } from './actions';
 
 /**
  * 맥주 리스트 관련 reducer
@@ -25,12 +25,25 @@ function tags(state = [], action) {
   }
 }
 
+function page(state = {now:0, length:5}, action) {
+  switch (action.type) {
+  case GET_PAGE:
+    return state;
+  case NEXT_PAGE:
+    return Object.assign({}, state, {
+      now: (state.now + 1)
+    });
+
+  default:
+      return state;
+  }
+}
+
 /**
  * combineReducers
  */
 const toss = combineReducers({
-  beers,
-  tags
+  beers, tags, page
 });
 
 export default toss;
