@@ -1,26 +1,17 @@
 import React, { Component } from 'react';
-import './App.css';
+import { Home, Beers } from './pages';
+import {Route } from 'react-router-dom'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+export default class App extends Component {
+    render() {
+        return (
+                <div>
+                    <Route exact path="/" component={Home} />
+                    <Route exact path="/beer_list" component={Beers} />
+                </div>
+            )
+        }
   }
-}
 
-export default App;
+
+
