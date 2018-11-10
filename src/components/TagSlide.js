@@ -5,9 +5,12 @@ import Swiper from 'swiper';
 import './tagSlide.scss';
 
 class TagSlide extends Component {
+    constructor(props) {
+        super(props);
+    }
     // 컴포넌트 업데이트 시 mySwiper도 업데이트 (넓이 관련)
     componentDidUpdate(){
-        this.mySwiper.slideTo(0);
+        // this.mySwiper.slideTo(0);
         this.mySwiper.update();
     }
 
@@ -15,15 +18,23 @@ class TagSlide extends Component {
     componentDidMount(){
         this.mySwiper = new Swiper('.swiper-container',{
             slidesPerView: 'auto',
-            spaceBetween: 20,
+            spaceBetween: 8,
         });
     }
 
     // 태그 리스트
     tagList() {
+        
         return this.props.tags.map(
         ({key, name}) => (
-            <li id={key} key={key} className="swiper-slide itme">
+            <li id={key} 
+                key={key} 
+                className={`
+                    swiper-slide item 
+                    ${this.props.selctedTagsKey.indexOf(key) == -1 ? 'disable' : ''}
+                `}
+                onClick={this.props.onClick.bind(null, key)}
+                >
                 {name}
             </li>
             )

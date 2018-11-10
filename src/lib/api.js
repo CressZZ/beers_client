@@ -3,16 +3,21 @@ import { Actions } from '../redux/actions';
 
 
 export function getTags (dispatch){
-
     return axios.get('http://13.209.98.23:3000/tags/list')
         .then(res=>{
+            let tagsKey = []
+            res.data.forEach((e)=>{
+                tagsKey.push(e.key)
+            })
             dispatch(Actions.getTags(res.data))
+            dispatch(Actions.toggleTag(tagsKey))
+            getBeers(dispatch, tagsKey)
         })
 }
 
-export function getBeers (dispatch){
-
-    return axios.get('http://13.209.98.23:3000/beers/list/A_L')
+export function getBeers(dispatch, tagsKey){
+    let tagsKeyS = tagsKey.join('_')
+    return axios.get(`http://13.209.98.23:3000/beers/list/${tagsKeyS}`)
         .then(res=>{
             dispatch(Actions.getBeers(res.data))
         })

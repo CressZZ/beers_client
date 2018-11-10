@@ -1,9 +1,11 @@
 // 액션 타입
 export const GET_BEERS = 'GET_BEERS'
 export const GET_TAGS = 'GET_TAGS'
+export const TOGGLE_TAG = 'TOGGLE_TAG'
 export const SET_BEERS = 'SET_BEERS'
 export const GET_PAGE = 'GET_PAGE'
 export const NEXT_PAGE = 'NEXT_PAGE'
+
 
 
 
@@ -25,6 +27,16 @@ export const Actions = {
   getTags(tags){
     return { 
       type: GET_TAGS,
+      tags
+    }
+  },
+
+  /**
+   * 태그 선택 
+   */
+  toggleTag(tags){
+    return { 
+      type: TOGGLE_TAG,
       tags
     }
   },

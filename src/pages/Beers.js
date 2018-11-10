@@ -17,25 +17,55 @@ class Beers extends Component {
     constructor(props) {
         super(props);
         
-        this.handleClick = this.handleClick.bind(this);
+        this.handleClickMoreBtn = this.handleClickMoreBtn.bind(this);
+        this.handleToggleTag = this.handleToggleTag.bind(this);
+
     }
-    
-    handleClick(){
-        const { dispatch, page, beers } = this.props;
-        if(beers.length > (page.now * page.length)){
+
+    /**
+     * 라이프 싸이클 
+     * 처음 마운트 될때 DB로 부터 맥주 리스트와, 태그 리스트를 받아 온다. 
+     */
+    async componentDidMount(){
+        const { dispatch } = this.props;
+        dispatch(Actions.getPage())
+        await api.getTags(dispatch)
+        // await api.getBeers(dispatch)
+    }
+
+
+
+    /**
+     * 태그 토글 버튼 클릭 처리 
+     */
+    async handleToggleTag(key){
+        const { dispatch, selctedTagsKey } = this.props;
+        let _selctedTagsKey = selctedTagsKey.splice(0)
+        let index = _selctedTagsKey.indexOf(key)
+        if(index > -1){
+            _selctedTagsKey.splice(index, 1)
+        }else{
+            _selctedTagsKey.push(key)
+        }
+
+        dispatch(Actions.toggleTag(_selctedTagsKey));
+        await api.getBeers(dispatch, _selctedTagsKey)
+    }
+
+    /**
+     * 더보기 버튼 클릭 처리
+     */
+    handleClickMoreBtn(){
+        const { dispatch, page, beers, isMaxPage } = this.props;
+        if(!isMaxPage){
             dispatch(Actions.nextPage())
         }
         return false;
     }
 
-    async componentDidMount(){
-        const { dispatch } = this.props;
-
-        dispatch(Actions.getPage())
-        await api.getBeers(dispatch)
-        await api.getTags(dispatch)
-
-    }
+    /**
+     * 개별 맥주 컴포넌트 렌더
+     */
     rederBeer(){
         const { dispatch, page, beers } = this.props;
         let _beers = beers.slice(0)
@@ -50,16 +80,18 @@ class Beers extends Component {
     }
 
     render() {
-        const { beers, tags } = this.props;
+        const { beers, tags, isMaxPage, selctedTagsKey } = this.props;
         console.log(beers)
         console.log(tags)
+        console.log(selctedTagsKey)
+
         return (
             <div className="beers__container">
-                <TagSlide tags={tags}/>
+                <TagSlide tags={tags} selctedTagsKey={selctedTagsKey} onClick={this.handleToggleTag}/>
                 <div className="beers">
                     {this.rederBeer()}
                 </div>
-                <div className={`beers__btn--more ${'test'}`}  onClick={this.handleClick}>
+                <div className={`beers__btn--more ${isMaxPage ? 'hide' : ''}`}  onClick={this.handleClickMoreBtn}>
                     더보기 + 
                 </div>
             </div>
@@ -71,15 +103,28 @@ Beers.propTypes = {
     beers: PropTypes.array,
     tags: PropTypes.array,
     page:  PropTypes.object,
+    selctedTagsKey:  PropTypes.array,
+    isMaxPage: PropTypes.bool
 };
 
 function states(state) {
+ 
     return {
         beers: state.beers,
         tags: state.tags,
         page: state.page,
+        selctedTagsKey: state.selctedTagsKey,
+        isMaxPage: isMAxPage(state.page, state.beers)
 
     };
+}
+
+function isMAxPage(page, beers){
+    if(beers.length >= ((page.now+1) * page.length)){
+        return false;
+    }else{
+        return true;
+    }
 }
 
 // 디스패치와 상태를 주입하려는 컴포넌트를 감싸줍니다.
