@@ -1,0 +1,13 @@
+.tag_slid__container{
+    background: red;
+    overflow: hidden;
+    .list{
+        display: flex;
+        .itme{
+            flex-shrink: 0;
+            background:pink;
+            padding:5px;
+            border-radius: 5px;
+        }
+    }
+}
