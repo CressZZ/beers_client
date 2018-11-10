@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as api from '../lib/api';
 
+import TagSlide from '../components/TagSlide';
+
+
 class Beers extends Component {
     async componentDidMount(){
         const { dispatch } = this.props;
@@ -16,6 +19,7 @@ class Beers extends Component {
         console.log(tags)
         return (
             <div>
+                <TagSlide tags={tags}/>
                 <h2>
                     맥주리스트
                 </h2>

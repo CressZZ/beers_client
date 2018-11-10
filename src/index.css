@@ -1,14 +1,25 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
+*{box-sizing: border-box}
+*{padding:0;margin:0;}
+html{overflow-x: hidden;}
+/*html.popon,body.popon{overflow:hidden; height: 100%; width: 100%; position: fixed; top:0; bottom:0;}*/
+html.popon,body.popon{overflow:hidden;position:relative; height: 100%}
+html.popon_noh,body.popon_noh{overflow:hidden;position:relative;}
+body{position:relative;overflow-x:hidden;min-width:320px;color:#262626;font:normal 12px/1.2 YG76, Dotum, sans-serif;-webkit-text-size-adjust:100%;}
+h1,h2,h3,h4,h5,th{font-family:YG76;font-weight:normal;font-size:14px;}
+img{vertical-align:top;border:0;max-width:100%;}
+button{border:0;padding:0;margin:0;background:none;cursor:pointer;text-align:center;outline:0;font-family:YG76;}
+table{table-layout:fixed;border-collapse:collapse;}
+td{word-wrap:break-word;}
+a{text-decoration:none;color:#262626;cursor:pointer;}
+a:hover{color:#546d5b;}
+em{font-style:normal;font-family:Tahoma;font-weight:bold;}
+strong{font-family:Tahoma;}
+li{list-style: none;}
+input{vertical-align:middle;font-family:YG76;border:0;outline:0;border-radius:0;-webkit-appearance:none;-webkit-text-size-adjust:100%;}
+textarea{-webkit-appearance:none;-webkit-text-size-adjust:100%;font-size:14px;}
+/* select{-webkit-text-size-adjust:100%;font-size:14px;-webkit-appearance:none;} */
+hr, legend{position:absolute;width:0;height:0;font-size:0;line-height:0;overflow:hidden;visibility:hidden;text-indent:100%;}
+caption{width:0;height:0;padding:0px;margin:0px;visibility:hidden;}
+label{cursor:pointer;vertical-align:middle;}
+fieldset{border:0;}
+p{margin:0}
