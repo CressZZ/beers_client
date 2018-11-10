@@ -3,7 +3,7 @@ import {
   GET_BEERS, 
   GET_TAGS, 
   TOGGLE_TAG,
-  GET_PAGE, NEXT_PAGE } from './actions';
+  GET_PAGE, NEXT_PAGE, RESET_PAGE } from './actions';
 
 /**
  * 맥주 리스트 관련 reducer
@@ -52,7 +52,10 @@ function page(state = {now:0, length:5}, action) {
     return Object.assign({}, state, {
       now: (state.now + 1)
     });
-
+  case RESET_PAGE:
+    return Object.assign({}, state, {
+      now: 0
+    });
   default:
       return state;
   }

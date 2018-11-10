@@ -51,7 +51,9 @@ class Beers extends Component {
         }
 
         dispatch(Actions.toggleTag(_selctedTagsKey));
-        await api.getBeers(dispatch, _selctedTagsKey)
+        await api.getBeers(dispatch, _selctedTagsKey);
+        dispatch(Actions.resetPage())
+
         console.log(e)
     }
 

@@ -5,6 +5,8 @@ export const TOGGLE_TAG = 'TOGGLE_TAG'
 export const SET_BEERS = 'SET_BEERS'
 export const GET_PAGE = 'GET_PAGE'
 export const NEXT_PAGE = 'NEXT_PAGE'
+export const RESET_PAGE = 'RESET_PAGE'
+
 
 
 
@@ -50,6 +52,12 @@ export const Actions = {
   nextPage(){
     return { 
       type: NEXT_PAGE,
+    }
+  },
+
+  resetPage(){
+    return { 
+      type: RESET_PAGE,
     }
   }
 }
