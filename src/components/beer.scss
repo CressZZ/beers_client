@@ -1,7 +1,7 @@
 .beer__item{
     background: white;
     padding: 10px;
-    border: 1px solid #979797;
+    border: 1px solid #d9d9d9;
     border-radius: 5px;
     height:144px;
     margin: 10px 0;
@@ -39,6 +39,9 @@
             .beer__price{
                 font-weight: bold;
                 color: #768399;
+                em{
+                    font-size:13px;
+                }
             }
             .beer__count{
                 display: flex;
