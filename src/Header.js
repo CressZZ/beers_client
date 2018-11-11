@@ -1,9 +1,20 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Actions } from './redux/actions';
+import * as api from './lib/api';
+
 import { Link } from 'react-router-dom'
 import './header.scss';
 
 class Header extends Component {
+  async componentDidMount(){
+    const { dispatch } = this.props;
+      await api.getCart(dispatch)
+  }
+
   render() {
+    console.log(this.props.cart)
     return (
       <div className='header'>
         <p>
@@ -16,10 +27,25 @@ class Header extends Component {
           <li>
             <Link to={'/cart'}>장바구니</Link>
           </li>
+          
         </ul>
+          <div>
+          {this.props.cart.length}
+          </div>
       </div>
     )
   }
 }
+Header.propTypes = {
+  cart: PropTypes.array,
+};
 
-export default Header
+function states(state) {
+ 
+  return {
+      cart: state.cart,
+  };
+}
+// 디스패치와 상태를 주입하려는 컴포넌트를 감싸줍니다.
+export default connect(states)(Header);
+
