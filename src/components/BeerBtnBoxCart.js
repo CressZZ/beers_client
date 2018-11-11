@@ -10,7 +10,7 @@ const BeerBtnBoxCart = (props) => {
         <div 
             className = {`beer__btn beer__btn--del ${props.cartCnt > 0 ? '' : 'hide'}`}
             onClick={
-               props.onClick.bind(null, props.beer.id,props.cartCnt, props.cartCnt,'del',props.beer.stock)
+               props.onClick.bind(null, props.beer.id,props.cartCnt, 1,'del',props.beer.stock)
             }
             >
             취소
