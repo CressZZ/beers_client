@@ -50,10 +50,12 @@
                     margin-right:10px;
                     em{
                         font-weight: bold;
-                         color:#3C3C42
+                         color:#999
                      }
                 }
-               
+                p.hide{
+                    display: none;
+                }
             }
             
         }
