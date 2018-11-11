@@ -25,7 +25,7 @@ class Beers extends Component {
     async componentDidMount(){
         const { dispatch, selctedTagsKey } = this.props;
         dispatch(Actions.getPage())
-        if(selctedTagsKey.length == 0){
+        if(selctedTagsKey.length === 0){
             await api.getTags(dispatch)
         }
     }
@@ -37,8 +37,8 @@ class Beers extends Component {
         const { dispatch , selctedTagsKey} = this.props;
         e.preventDefault();
     
-        if(action == 'add'){
-            if(stock==0){
+        if(action === 'add'){
+            if(stock === 0){
                 // 재고 부족
                 alert('해당 상품은 재고가 부족하여 장바구니에 다을 수 없습니다.')
                 return false;
@@ -84,7 +84,7 @@ class Beers extends Component {
      */
     handleClickMoreBtn(e){
         e.preventDefault();
-        const { dispatch, page, beers, isMaxPage } = this.props;
+        const { dispatch, isMaxPage } = this.props;
         if(!isMaxPage){
             dispatch(Actions.nextPage())
         }
@@ -95,12 +95,12 @@ class Beers extends Component {
      * 개별 맥주 컴포넌트 렌더
      */
     rederBeer(){
-        const { dispatch, page, beers, cart } = this.props;
+        const { page, beers, cart } = this.props;
         let _beers = beers.slice(0)
         let targetBeers = _beers.splice(0, (page.now+1) * page.length)
         let targetBeerComponent = targetBeers.map((beer, i) => {
             let cartInfo = cart.filter((e)=>{
-                return e.beer_id == beer.id
+                return e.beer_id === beer.id
             })
             console.log(cartInfo)
             return(<Beer

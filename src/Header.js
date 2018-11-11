@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Actions } from './redux/actions';
 import * as api from './lib/api';
 
 import { Link } from 'react-router-dom'

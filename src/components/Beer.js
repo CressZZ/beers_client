@@ -42,7 +42,7 @@ class Beer extends Component {
                             빼기
                         </div>
                         <div 
-                            className =  {`beer__btn beer__btn--add ${beer.stock == 0 ? 'soldout' : ''}`} 
+                            className =  {`beer__btn beer__btn--add ${beer.stock === 0 ? 'soldout' : ''}`} 
                             onClick={
                                 this.props.onClick.bind(null, beer.id,cartCnt,  1,'add',beer.stock)
                             }
