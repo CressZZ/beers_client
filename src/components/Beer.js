@@ -11,11 +11,11 @@ import BeerBtnBoxBeers from './BeerBtnBoxBeers';
  * 함수형으로 만든  BeerBtnBoxCart.js 
  */
 const Beer = (props) => {
-    const {pageName, beer, cartCnt, onClick} = props;
+    const {pageName, beer, cartCnt, onClick, match} = props;
     let beerBtnBox;
-    if(pageName === "cart"){
+    if(match.url === "/cart"){
         beerBtnBox = <BeerBtnBoxCart beer={beer} cartCnt={cartCnt} onClick={onClick}/>
-    }else if((pageName === "beers")){
+    }else if((match.url === "/beer_list")){
         beerBtnBox = <BeerBtnBoxBeers beer={beer} cartCnt={cartCnt} onClick={onClick}/>
     }
     return(
@@ -45,8 +45,7 @@ const Beer = (props) => {
 Beer.propTypes = {
     beer: PropTypes.object,
     onClick: PropTypes.func,
-    pageName: PropTypes.string
-
+    match: PropTypes.object,
 
 };
 
