@@ -14,18 +14,18 @@ class Header extends Component {
   }
 
   render() {
-    const {cart} = this.props
+    const {cart, match} = this.props
     return (
       <div className='header'>
         <p>
           맥주담기
         </p>
         <ul className='links'>
-          <li className='links__beers'>
+          <li className={`links__beers ${match.path === "/beer_list" ? 'on' : ''}`}>
             <Link to={'/beer_list'}>맥주 리스트</Link>
           </li>
-          <li className='links__cart'>
-            <Link to={'/cart'}>장바구니</Link>
+          <li className={`links__cart ${match.path === "/cart" || match.path === "/cart_empty" ? 'on' : ''}`}>
+            <Link to={`${cart.length > 0 ? '/cart' : '/cart_empty'}`}>장바구니</Link>
             <div className={`links__cartCnt ${cart.length > 0 ? '' : 'hide'}`}>
               {this.props.cart.length}
             </div>
@@ -38,6 +38,7 @@ class Header extends Component {
 }
 Header.propTypes = {
   cart: PropTypes.array,
+  match: PropTypes.object,
 };
 
 function states(state) {
