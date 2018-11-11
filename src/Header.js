@@ -6,6 +6,7 @@ import * as api from './lib/api';
 import { Link } from 'react-router-dom'
 import './header.scss';
 
+
 class Header extends Component {
   async componentDidMount(){
     const { dispatch } = this.props;
@@ -13,24 +14,24 @@ class Header extends Component {
   }
 
   render() {
-    console.log(this.props.cart)
+    const {cart} = this.props
     return (
       <div className='header'>
         <p>
           맥주담기
         </p>
         <ul className='links'>
-          <li>
+          <li className='links__beers'>
             <Link to={'/beer_list'}>맥주 리스트</Link>
           </li>
-          <li>
+          <li className='links__cart'>
             <Link to={'/cart'}>장바구니</Link>
+            <div className={`links__cartCnt ${cart.length > 0 ? '' : 'hide'}`}>
+              {this.props.cart.length}
+            </div>
           </li>
-          
         </ul>
-          <div>
-          {this.props.cart.length}
-          </div>
+    
       </div>
     )
   }
