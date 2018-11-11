@@ -49,14 +49,16 @@
                 background: red;
                 top: 5px;
                 right: 0;
-                width: 20px;
-                height: 20px;
+                width: 15px;
+                height: 15px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 font-size: 12px;
                 color: white;
                 border-radius: 50%; 
+                text-indent: initial;
+                font-weight: bold;
             }
             .links__cartCnt.hide{
                 display:none;

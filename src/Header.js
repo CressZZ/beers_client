@@ -21,14 +21,17 @@ class Header extends Component {
           맥주담기
         </p>
         <ul className='links'>
-          <li className={`links__beers ${match.path === "/beer_list" ? 'on' : ''}`}>
-            <Link to={'/beer_list'}>맥주 리스트</Link>
+          <li >
+            <Link className={`links__beers ${match.path === "/beer_list" ? 'on' : ''}`} to={'/beer_list'}>맥주 리스트</Link>
           </li>
-          <li className={`links__cart ${match.path === "/cart" || match.path === "/cart_empty" ? 'on' : ''}`}>
-            <Link to={`${cart.length > 0 ? '/cart' : '/cart_empty'}`}>장바구니</Link>
+          <li>
+            <Link className={`links__cart ${match.path === "/cart" || match.path === "/cart_empty" ? 'on' : ''}`} to={`${cart.length > 0 ? '/cart' : '/cart_empty'}`}>
+            장바구니
             <div className={`links__cartCnt ${cart.length > 0 ? '' : 'hide'}`}>
               {this.props.cart.length}
             </div>
+            </Link>
+
           </li>
         </ul>
     
