@@ -102,13 +102,12 @@ class Beers extends Component {
             let cartInfo = cart.filter((e)=>{
                 return e.beer_id === beer.id
             })
-            console.log(cartInfo)
             return(<Beer
                 beer ={ beer }
                 key ={i}
                 cartCnt={cartInfo[0] ? cartInfo[0].count : 0}
                 onClick={this.handleCartControl}
-
+                pageName={'beers'}
                 />);
         })
 
@@ -117,9 +116,6 @@ class Beers extends Component {
 
     render() {
         const { beers, tags, isMaxPage, selctedTagsKey } = this.props;
-        console.log(beers)
-        console.log(tags)
-        console.log(selctedTagsKey)
 
         return (
             <div className="beers__container">
