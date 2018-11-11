@@ -33,6 +33,9 @@ class Cart extends Component {
         e.preventDefault();
         const { dispatch , cart, totalPrice, history} = this.props;
         await api.purchase(dispatch, cart, cart.length, totalPrice, 1)
+        await api.resetCart(dispatch, cart, cart.length, totalPrice, 1)
+
+        // api.purchase(dispatch, cart, cart.length, totalPrice, 1)
         history.push('/beer_list');
 
     }

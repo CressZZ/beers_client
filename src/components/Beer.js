@@ -10,7 +10,7 @@ import BeerBtnBoxBeers from './BeerBtnBoxBeers';
  * 함수형으로 만든  BeerBtnBoxCart.js 
  */
 const Beer = (props) => {
-    const {pageName, beer, cartCnt, onClick, match} = props;
+    const { beer, cartCnt, onClick, match} = props;
     let beerBtnBox;
     if(match.url === "/cart"){
         beerBtnBox = <BeerBtnBoxCart beer={beer} cartCnt={cartCnt} onClick={onClick}/>
@@ -29,7 +29,7 @@ const Beer = (props) => {
                     <p className ="beer__tags"> {beer.tags.join(', ')}</p>
                     <p className ="beer__price"> {common.comma(beer.price)} <em>원</em></p>
                     <div className ="beer__count">
-                        <p className={`${pageName === "cart" ? 'hide' : ''}`}>재고 <em>{common.comma(beer.stock)}</em></p>
+                        <p className={`${match.path === "/cart" ? 'hide' : ''}`}>재고 <em>{common.comma(beer.stock)}</em></p>
                         <p>수량 <em>{common.comma(cartCnt)}</em></p>
                     </div>
                 </div>

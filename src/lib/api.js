@@ -67,10 +67,9 @@ export function cartAction(dispatch, action,beer_id, cnt, user_id = 1){
 
 
 /**
- * 카트 수량 변경 및 추가 삭제 
+ * 구매하기
  */
-export function purchase(dispatch, cart, cnt, totalPrice, user_id){
-    console.log()
+export async function purchase(dispatch, cart, cnt, totalPrice, user_id){
     let purchaseBeer=[];
     cart.forEach((beer)=>{
         let _data = {}
@@ -79,22 +78,27 @@ export function purchase(dispatch, cart, cnt, totalPrice, user_id){
         purchaseBeer.push(_data);
     })
     let data = {purchaseBeer, user_id, cnt, totalPrice}
-
-    let purchaseBeerArr = cart.map((beer)=>{
-        let _string = '';
-        _string = `${beer.name} ${beer.count}개 `
-        return _string; 
-    })
-    let purchaseBeerStr = purchaseBeerArr.join(',');
-    purchaseBeerStr += `구매 완료 하였습니다. \n 총 구매하신 종류는 ${cnt} 종류, \n 총 구매하신 금액은 ${totalPrice} 입니다. `
-
-    alert(`${purchaseBeerStr}`)
-    console.log(data)
-
-    // return axios.post(`http://13.209.98.23:3000/purchase`, data)
-    // return axios.post(`http://localhost:3001/purchase`, data)
-
-        // .then(res=>{
-            // dispatch(Actions.cartReset(res.data.cart))
-        // })
+    
+    return axios.post(`http://localhost:3001/purchase`, data)
+        .then(res=>{
+            console.log('구매하기 완료: ', data)
+        })
+    
+}
+/**
+ * 장바구니 비우기
+ */
+export async function resetCart(dispatch, cart, cnt, totalPrice, user_id){
+    return axios.get(`http://localhost:3001/cart/reset/${user_id}`)
+        .then(res=>{
+            dispatch(Actions.setCart([]))
+            let purchaseBeerArr = cart.map((beer)=>{
+                let _string = '';
+                _string = `${beer.name} ${beer.count}개 `
+                return _string; 
+            })
+            let purchaseBeerStr = purchaseBeerArr.join(',');
+            purchaseBeerStr += `구매 완료 하였습니다. \n 총 구매하신 종류는 ${cnt} 종류, \n 총 구매하신 금액은 ${totalPrice} 입니다. `
+            alert(`${purchaseBeerStr}`)
+        })
 }
