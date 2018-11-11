@@ -79,7 +79,7 @@ export async function purchase(dispatch, cart, cnt, totalPrice, user_id){
     })
     let data = {purchaseBeer, user_id, cnt, totalPrice}
     
-    return axios.post(`http://localhost:3001/purchase`, data)
+    return axios.post(`http://13.209.98.23:3000/purchase`, data)
         .then(res=>{
             console.log('구매하기 완료: ', data)
         })
@@ -89,7 +89,7 @@ export async function purchase(dispatch, cart, cnt, totalPrice, user_id){
  * 장바구니 비우기
  */
 export async function resetCart(dispatch, cart, cnt, totalPrice, user_id){
-    return axios.get(`http://localhost:3001/cart/reset/${user_id}`)
+    return axios.get(`http://13.209.98.23:3000/cart/reset/${user_id}`)
         .then(res=>{
             dispatch(Actions.setCart([]))
             let purchaseBeerArr = cart.map((beer)=>{
