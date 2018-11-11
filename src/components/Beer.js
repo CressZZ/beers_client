@@ -1,5 +1,4 @@
-// import React from 'react';
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import './beer.scss';
 import common from '../lib/utils';

@@ -117,11 +117,11 @@ class Beers extends Component {
     }
 
     render() {
-        const { beers, tags, isMaxPage, selctedTagsKey } = this.props;
-
+        const { tags, isMaxPage, selctedTagsKey, match } = this.props;
+      
         return (
             <div>
-            <Header />
+            <Header match={match}/>
             <div className="beers__container">
                 <TagSlide tags={tags} selctedTagsKey={selctedTagsKey} onClick={this.handleToggleTag} />
                 <div className="beers">

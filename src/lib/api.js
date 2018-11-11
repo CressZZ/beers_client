@@ -64,3 +64,37 @@ export function cartAction(dispatch, action,beer_id, cnt, user_id = 1){
             }
         })
 }
+
+
+/**
+ * 카트 수량 변경 및 추가 삭제 
+ */
+export function purchase(dispatch, cart, cnt, totalPrice, user_id){
+    console.log()
+    let purchaseBeer=[];
+    cart.forEach((beer)=>{
+        let _data = {}
+        _data.id = beer.beer_id;
+        _data.count = beer.count;
+        purchaseBeer.push(_data);
+    })
+    let data = {purchaseBeer, user_id, cnt, totalPrice}
+
+    let purchaseBeerArr = cart.map((beer)=>{
+        let _string = '';
+        _string = `${beer.name} ${beer.count}개 `
+        return _string; 
+    })
+    let purchaseBeerStr = purchaseBeerArr.join(',');
+    purchaseBeerStr += `구매 완료 하였습니다. \n 총 구매하신 종류는 ${cnt} 종류, \n 총 구매하신 금액은 ${totalPrice} 입니다. `
+
+    alert(`${purchaseBeerStr}`)
+    console.log(data)
+
+    // return axios.post(`http://13.209.98.23:3000/purchase`, data)
+    // return axios.post(`http://localhost:3001/purchase`, data)
+
+        // .then(res=>{
+            // dispatch(Actions.cartReset(res.data.cart))
+        // })
+}

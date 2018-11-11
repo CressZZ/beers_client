@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Actions } from '../redux/actions';
 import * as api from '../lib/api';
 
 import Beer from '../components/Beer';
@@ -25,18 +24,16 @@ class Cart extends Component {
      * 처음 마운트 될때 장바구니 리스트를 받아온다 
      */
     async componentDidMount(){
-        // const {match} = this.props
-        // console.log(match)
 
     }
     /**
-     * 
+     * 구매하기 처리
      */
     async handlerPurchase(e){
         e.preventDefault();
-        const { dispatch , cart, totalPrice} = this.props;
-
+        const { dispatch , cart, totalPrice, history} = this.props;
         await api.purchase(dispatch, cart, cart.length, totalPrice, 1)
+        history.push('/beer_list');
 
     }
     /**
@@ -89,10 +86,10 @@ class Cart extends Component {
     }
 
     render() {
-
+        const {match} = this.props
         return (
             <div>
-            <Header />
+            <Header match={match}/>
 
             <div className="cart__container">
                 <div className="cart">
