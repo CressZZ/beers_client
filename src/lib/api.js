@@ -40,19 +40,27 @@ export function getBeers(dispatch, tagsKey){
  */
 export function getCart(dispatch, user_id = 1){
     return axios.get(`http://13.209.98.23:3000/cart/${user_id}`)
+    // return axios.get(`http://localhost:3001/cart/${user_id}`)
+
         .then(res=>{
             dispatch(Actions.setCart(res.data.cart))
         })
 }
 
 /**
- * 카트 수량 변경 및 추가 삭제
+ * 카트 수량 변경 및 추가 삭제 
  */
 export function cartAction(dispatch, action,beer_id, cnt, user_id = 1){
+    
     return axios.get(`http://13.209.98.23:3000/cart/${action}/${user_id}/${beer_id}/${cnt}`)
     // return axios.get(`http://localhost:3001/cart/${action}/${user_id}/${beer_id}/${cnt}`)
 
         .then(res=>{
             dispatch(Actions.setCart(res.data.cart))
+            if(action === "plus"){
+                alert('장바구니에 담았습니다.')
+            }else{
+                alert('장바구니에서 제거하였습니다.')
+            }
         })
 }
