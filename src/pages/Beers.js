@@ -6,6 +6,8 @@ import * as api from '../lib/api';
 import Beer from '../components/Beer';
 import './beers.scss';
 import TagSlide from '../components/TagSlide';
+import Header from '../Header.js'
+
 
 
 class Beers extends Component {
@@ -95,7 +97,7 @@ class Beers extends Component {
      * 개별 맥주 컴포넌트 렌더
      */
     rederBeer(){
-        const { page, beers, cart } = this.props;
+        const { page, beers, cart, match } = this.props;
         let _beers = beers.slice(0)
         let targetBeers = _beers.splice(0, (page.now+1) * page.length)
         let targetBeerComponent = targetBeers.map((beer, i) => {
@@ -107,7 +109,7 @@ class Beers extends Component {
                 key ={i}
                 cartCnt={cartInfo[0] ? cartInfo[0].count : 0}
                 onClick={this.handleCartControl}
-                pageName={'beers'}
+                match={match}
                 />);
         })
 
@@ -118,6 +120,8 @@ class Beers extends Component {
         const { beers, tags, isMaxPage, selctedTagsKey } = this.props;
 
         return (
+            <div>
+            <Header />
             <div className="beers__container">
                 <TagSlide tags={tags} selctedTagsKey={selctedTagsKey} onClick={this.handleToggleTag} />
                 <div className="beers">
@@ -126,6 +130,7 @@ class Beers extends Component {
                 <div className={`beers__btn--more ${isMaxPage ? 'hide' : ''}`}  onClick={this.handleClickMoreBtn}>
                     더보기 + 
                 </div>
+            </div>
             </div>
          );
     }
@@ -138,6 +143,7 @@ Beers.propTypes = {
     selctedTagsKey:  PropTypes.array,
     isMaxPage: PropTypes.bool,
     cart: PropTypes.array,
+    
 
 };
 

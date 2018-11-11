@@ -7,6 +7,7 @@ import * as api from '../lib/api';
 import Beer from '../components/Beer';
 import './cart.scss';
 import common from '../lib/utils';
+import Header from '../Header.js'
 
 
 
@@ -15,6 +16,7 @@ class Cart extends Component {
         super(props);
         
         this.handleCartControl = this.handleCartControl.bind(this);
+        this.handlerPurchase = this.handlerPurchase.bind(this);
 
     }
 
@@ -23,10 +25,20 @@ class Cart extends Component {
      * 처음 마운트 될때 장바구니 리스트를 받아온다 
      */
     async componentDidMount(){
-        // const { dispatch } = this.props;
-        // await api.getCart(dispatch)
-    }
+        // const {match} = this.props
+        // console.log(match)
 
+    }
+    /**
+     * 
+     */
+    async handlerPurchase(e){
+        e.preventDefault();
+        const { dispatch , cart, totalPrice} = this.props;
+
+        await api.purchase(dispatch, cart, cart.length, totalPrice, 1)
+
+    }
     /**
      * 장바구니 컨트롤 처리 
      */
@@ -61,7 +73,7 @@ class Cart extends Component {
      * 개별 맥주 컴포넌트 렌더
      */
     rederBeer(){
-        const { cart } = this.props;
+        const { cart, match } = this.props;
         let _cart = cart.slice(0)
         let cartBeerComponent = _cart.map((beer, i) => {
             return(<Beer
@@ -69,7 +81,7 @@ class Cart extends Component {
                 key ={i}
                 cartCnt={beer.count}
                 onClick={this.handleCartControl}
-                pageName={'cart'}
+                match={match}
                 />);
         })
 
@@ -77,12 +89,11 @@ class Cart extends Component {
     }
 
     render() {
-        const { beers, tags, selctedTagsKey } = this.props;
-        console.log(beers)
-        console.log(tags)
-        console.log(selctedTagsKey)
 
         return (
+            <div>
+            <Header />
+
             <div className="cart__container">
                 <div className="cart">
                     {this.rederBeer()}
@@ -96,11 +107,12 @@ class Cart extends Component {
                             총 결제금액 <em>{common.comma(this.props.totalPrice)}</em> 원
                         </p>
                     </div>
-                    <div className="purchase__btn">
+                    <div className="purchase__btn" onClick={this.handlerPurchase} >
                         구매하기
                     </div>
                 </div>
 
+            </div>
             </div>
          );
     }
@@ -112,7 +124,7 @@ Cart.propTypes = {
     page:  PropTypes.object,
     selctedTagsKey:  PropTypes.array,
     cart: PropTypes.array,
-    totalPrice: PropTypes.number
+    totalPrice: PropTypes.number,
 
 };
 
