@@ -6,6 +6,8 @@ export const SET_BEERS = 'SET_BEERS'
 export const GET_PAGE = 'GET_PAGE'
 export const NEXT_PAGE = 'NEXT_PAGE'
 export const RESET_PAGE = 'RESET_PAGE'
+export const SET_CART = 'SET_CART'
+
 
 
 
@@ -58,6 +60,13 @@ export const Actions = {
   resetPage(){
     return { 
       type: RESET_PAGE,
+    }
+  },
+
+  setCart(cart){
+    return { 
+      type: SET_CART,
+      cart
     }
   }
 }

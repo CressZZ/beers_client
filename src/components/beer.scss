@@ -75,10 +75,19 @@
         .beer__btn--del{
             background: #eee
         }
+        .beer__btn--del.hide{
+            display:none;
+        }
         .beer__btn--add{
             color: white;
             background:#3369E8;
         }
+        .beer__btn--add.soldout{
+            background:#DCDCE0;
+            color:black;
+            // pointer-events: none;
+        }
+
 
     }
 }

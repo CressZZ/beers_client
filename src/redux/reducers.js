@@ -3,7 +3,11 @@ import {
   GET_BEERS, 
   GET_TAGS, 
   TOGGLE_TAG,
-  GET_PAGE, NEXT_PAGE, RESET_PAGE } from './actions';
+  GET_PAGE, NEXT_PAGE, RESET_PAGE,
+  SET_CART
+} from './actions';
+
+
 
 /**
  * 맥주 리스트 관련 reducer
@@ -43,7 +47,9 @@ function selctedTagsKey(state = [], action){
      return state;
   }
 }
-
+/**
+ * 페이지 관련 reducer
+ */
 function page(state = {now:0, length:5}, action) {
   switch (action.type) {
   case GET_PAGE:
@@ -61,11 +67,27 @@ function page(state = {now:0, length:5}, action) {
   }
 }
 
+
+/**
+ * 장바구니 관련 reducer
+ * 로그인 기능이 없으므로 user_id 1로 고정
+ * 필요시 user_id 동적으로 변경 해야 함
+ */
+function cart(state=[], action){
+  switch (action.type) {
+    case SET_CART:
+      return action.cart;
+    default:
+      return state;
+  }
+}
+
+ 
 /**
  * combineReducers
  */
 const toss = combineReducers({
-  beers, tags, selctedTagsKey, page
+  beers, tags, selctedTagsKey, page, cart
 });
 
 export default toss;

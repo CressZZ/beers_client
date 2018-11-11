@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import * as api from '../lib/api';
 import { Actions } from '../redux/actions';
+import * as api from '../lib/api';
 import Beer from '../components/Beer';
 import './beers.scss';
-
-
-
-
-
 import TagSlide from '../components/TagSlide';
 
 
@@ -19,6 +14,7 @@ class Beers extends Component {
         
         this.handleClickMoreBtn = this.handleClickMoreBtn.bind(this);
         this.handleToggleTag = this.handleToggleTag.bind(this);
+        this.handleCartControl = this.handleCartControl.bind(this);
 
     }
 
@@ -34,6 +30,33 @@ class Beers extends Component {
         }
     }
 
+    /**
+     * 장바구니 컨트롤 처리 
+     */
+    async handleCartControl(beerId, cartCnt, cnt, action,stock,e){
+        const { dispatch , selctedTagsKey} = this.props;
+        e.preventDefault();
+    
+        if(action == 'add'){
+            if(stock==0){
+                // 재고 부족
+                alert('해당 상품은 재고가 부족하여 장바구니에 다을 수 없습니다.')
+                return false;
+            } else{
+                await api.cartAction(dispatch, 'plus', beerId, cnt)
+            }
+        }else{
+            if(cartCnt < 0){
+                // 없는 상품
+                alert('해당 상품이 장바구니에 없습니다.')
+                return false;
+            }else {
+                //수량 감소
+                await api.cartAction(dispatch, 'minus', beerId, cnt)
+            }
+        }
+        await api.getBeers(dispatch, selctedTagsKey);
+    }
 
 
     /**
@@ -54,7 +77,6 @@ class Beers extends Component {
         await api.getBeers(dispatch, _selctedTagsKey);
         dispatch(Actions.resetPage())
 
-        console.log(e)
     }
 
     /**
@@ -73,13 +95,21 @@ class Beers extends Component {
      * 개별 맥주 컴포넌트 렌더
      */
     rederBeer(){
-        const { dispatch, page, beers } = this.props;
+        const { dispatch, page, beers, cart } = this.props;
         let _beers = beers.slice(0)
         let targetBeers = _beers.splice(0, (page.now+1) * page.length)
         let targetBeerComponent = targetBeers.map((beer, i) => {
+            let cartInfo = cart.filter((e)=>{
+                return e.beer_id == beer.id
+            })
+            console.log(cartInfo)
             return(<Beer
                 beer ={ beer }
-                key ={i}/>);
+                key ={i}
+                cartCnt={cartInfo[0] ? cartInfo[0].count : 0}
+                onClick={this.handleCartControl}
+
+                />);
         })
 
         return targetBeerComponent;
@@ -93,7 +123,7 @@ class Beers extends Component {
 
         return (
             <div className="beers__container">
-                <TagSlide tags={tags} selctedTagsKey={selctedTagsKey} onClick={this.handleToggleTag}/>
+                <TagSlide tags={tags} selctedTagsKey={selctedTagsKey} onClick={this.handleToggleTag} />
                 <div className="beers">
                     {this.rederBeer()}
                 </div>
@@ -110,7 +140,9 @@ Beers.propTypes = {
     tags: PropTypes.array,
     page:  PropTypes.object,
     selctedTagsKey:  PropTypes.array,
-    isMaxPage: PropTypes.bool
+    isMaxPage: PropTypes.bool,
+    cart: PropTypes.array,
+
 };
 
 function states(state) {
@@ -120,7 +152,9 @@ function states(state) {
         tags: state.tags,
         page: state.page,
         selctedTagsKey: state.selctedTagsKey,
-        isMaxPage: isMAxPage(state.page, state.beers)
+        isMaxPage: isMAxPage(state.page, state.beers),
+        cart: state.cart,
+
 
     };
 }
